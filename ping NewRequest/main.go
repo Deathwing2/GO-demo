@@ -1,7 +1,7 @@
 package main
 
 import (
-	"flag"
+	// "flag"
 	"fmt"
 	"net"
 	"net/http"
@@ -37,10 +37,10 @@ func main() {
 	var address string
 	var count, s int
 
-	flag.String("address", "google.com", "Укажите адрес сайта")
-	flag.Int("s", 5, "Укажите размер тайм-аута в секундах")
-	flag.Int("count", 10, "Введите количество запросов")
-	flag.Parse()
+	// flag.String("address", "google.com", "Укажите адрес сайта")
+	// flag.Int("s", 5, "Укажите размер тайм-аута в секундах")
+	// flag.Int("count", 10, "Введите количество запросов")
+	// flag.Parse()
 	address = os.Args[1]
 	numberString2 := os.Args[2]
 	s, err := strconv.Atoi(numberString2)
