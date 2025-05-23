@@ -8,16 +8,6 @@ type Book struct {
 	isAvailable bool
 }
 
-func (b Book) CheckOut(title string) bool {
-	b.isAvailable = false
-	return b.isAvailable
-}
-
-func (b Book) Return(title string) bool {
-	b.isAvailable = true
-	return b.isAvailable
-}
-
 type Library struct {
 	Books ([]Book)
 }
@@ -32,7 +22,7 @@ func (l Library) ListBooks() {
 		if !book.isAvailable {
 			availability = "Нет"
 		}
-		fmt.Printf("Название: \"%s\", Автор: \"%s\", Доступна: %s\n", book.title, book.author, availability)
+		fmt.Println("Название:", book.title, "Автор:", book.author, "Доступна:", availability)
 	}
 }
 
@@ -45,18 +35,37 @@ func (l Library) CheckBookAvailability(title string) bool {
 	return false
 }
 
+func (l Library) ChangeStatus(title string) bool {
+	for i, book := range l.Books {
+		if book.title == title {
+			if book.isAvailable {
+				l.Books[i].isAvailable = false
+			} else {
+				l.Books[i].isAvailable = true
+			}
+		}
+	}
+	return false
+}
+
 func main() {
 	lib := Library{}
 	lib.AddBook(Book{"Месть орков", "Ричард Кнаак", true})
 	lib.AddBook(Book{"Последний страж", "Джэфф Грабб", true})
 
+	// Изменяем  статус книги
+	title := "Последний страж"
+	lib.ChangeStatus(title)
+
+	// Показываем всю библиотеку
 	lib.ListBooks()
 
 	// Проверка доступности книги
-	title := "Месть орков"
+	title = "Последний страж"
 	if lib.CheckBookAvailability(title) {
 		fmt.Printf("Книга \"%s\" доступна для займа.\n", title)
 	} else {
 		fmt.Printf("Книга \"%s\" недоступна.\n", title)
 	}
+
 }
